@@ -1,8 +1,18 @@
 let express = require('express')
+let mongodb = require('mongodb')
 
 let app = express()
+let db;
 
-app.use(express.urlencoded({extended:false}))
+
+//setting up connection to the mongo db database 
+let connectionString = 'mongodb+srv://odeane:<password>@cluster0.iaw7w.mongodb.net/TodoApp?retryWrites=true&w=majority' //add password for it to work
+mongodb.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
+  app.listen(3000)
+  db = client.db()
+})
+
+app.use(express.urlencoded({ extended: false }))
 
 app.get('/', function (req, res) {
   res.send(`<!DOCTYPE html>
@@ -57,8 +67,9 @@ app.get('/', function (req, res) {
 })
 
 app.post('/create-item', function (req, res) {
-  console.log(req.body.item)
-  res.send("thanks for submitting")
+  db.collection('items').insertOne({ text: req.body.item }, function () {
+    res.send("thanks for submitting")
+  })
+
 })
 
-app.listen(3000)
