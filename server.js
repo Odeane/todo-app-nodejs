@@ -6,7 +6,7 @@ let db;
 
 
 //setting up connection to the mongo db database 
-let connectionString = 'mongodb+srv://odeane:mother30@cluster0.iaw7w.mongodb.net/TodoApp?retryWrites=true&w=majority' //add password for it to work
+let connectionString = 'mongodb+srv://odeane:<password></password>@cluster0.iaw7w.mongodb.net/TodoApp?retryWrites=true&w=majority' //add password for it to work
 mongodb.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
   app.listen(3000)
   db = client.db()
